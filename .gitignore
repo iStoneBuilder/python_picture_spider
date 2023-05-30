@@ -1,7 +1,7 @@
 # 默认忽略的文件
 /shelf/
 /workspace.xml
-.idea/*
+/.idea
 /misc.xml
 /python_picture_spider.iml
 /vcs.xml
