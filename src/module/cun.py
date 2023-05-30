@@ -8,7 +8,7 @@ from src.baseutil.irequests import request_context, download_images
 server = "http://www.cnu.cc"
 
 
-def _cun_works_data(_works_data, _works_id, _users_id):
+def download_cun_works_data(_works_data, _works_id, _users_id):
     _cun_status = ''
     # 图片数组
     _works_data_img = _works_data.find_all('div', {"id": "imgs_json"})
@@ -42,20 +42,22 @@ def _cun_works_data(_works_data, _works_id, _users_id):
 
 
 # 组图
-def _cun_works(_work_id):
+def download_cun_works(_work_id):
     _work_uri = server + f'/works/{_work_id}'
     # 获取组图数据
     _works_data = request_context(_work_uri, None, 'html')
-    # 获取作者URI
-    _span_author_uri = _works_data.find('span', {"class": "author-info"}).find('a').get('href')
-    # 获取用户ID
-    _users_id = _span_author_uri.replace('http://www.cnu.cc/users/', '')
-    # 下载组图数据
-    return _cun_works_data(_works_data, _work_id, _users_id)
+    if _works_data is not None:
+        # 获取作者URI
+        _span_author_uri = _works_data.find('span', {"class": "author-info"}).find('a').get('href')
+        # 获取用户ID
+        _users_id = _span_author_uri.replace('http://www.cnu.cc/users/', '')
+        # 下载组图数据
+        return download_cun_works_data(_works_data, _work_id, _users_id)
+    return 'NotFind'
 
 
 # 用户
-def _cun_users(_users_id):
+def download_cun_users(_users_id):
     print(f'========== ✅关注用户数据处理!开始 users_id: {_users_id}')
     # 下载链接
     _users_uri = f'{server}/users/{_users_id}?page='
@@ -74,7 +76,7 @@ def _cun_users(_users_id):
             # 组ID
             _works_id = _index_hrefs[len(_index_hrefs) - 1]
             # 下载数据
-            _cun_works(_works_id)
+            download_cun_works(_works_id)
         _users_index = _users_index + 1
         # 获取网站内容
         _users_datas = request_context(f"{_users_uri}{_users_index}", None, 'html')
@@ -82,8 +84,3 @@ def _cun_users(_users_id):
         _group_datas = _users_datas.find_all('a', {"class": "thumbnail"})
 
 
-if __name__ == '__main__':
-
-    _cun_users(129929)
-
-    # _cun_works(558233)

@@ -9,7 +9,7 @@ from src.baseutil.irequests import request_context, download_images
 server = "https://tuchong.com"
 
 
-def _tuchong_works_data(_works_data):
+def download_tuchong_works_data(_works_data):
     _tuchong_status = ''
     # 图片数组
     _works_imgs = _works_data['images']
@@ -40,7 +40,7 @@ def _tuchong_works_data(_works_data):
 
 
 # 组图
-def _tuchong_works(_work_id):
+def download_tuchong_works(_work_id):
     _work_uri = server + f'/rest/posts/{_work_id}'
     # 获取组图数据
     _works_data = request_context(_work_uri, None, 'json')
@@ -49,11 +49,11 @@ def _tuchong_works(_work_id):
     _works_data['author_id'] = _works_data['post']['author_id']
     _works_data['title'] = _works_data['post']['title']
     # 下载组图数据
-    return _tuchong_works_data(_works_data)
+    return download_tuchong_works_data(_works_data)
 
 
 # 用户
-def _tuchong_users(_users_id):
+def download_tuchong_users(_users_id):
     print(f'========== ✅关注用户数据处理!开始 users_id: {_users_id}')
     # 下载链接
     _users_uri = f'{server}/rest/2/sites/{_users_id}/posts?count=20&page='
@@ -69,7 +69,7 @@ def _tuchong_users(_users_id):
         # 每一页的所有链接
         for _index, _index_data in enumerate(_group_datas):
             # 下载数据
-            _tuchong_works_data(_index_data)
+            download_tuchong_works_data(_index_data)
         _users_index = _users_index + 1
         # 获取网站内容
         _users_datas = request_context(f"{_users_uri}{_users_index}", None, 'json')
@@ -77,8 +77,3 @@ def _tuchong_users(_users_id):
         _group_datas = _users_datas['post_list']
 
 
-if __name__ == '__main__':
-
-    # _tuchong_users(1317325)
-
-    _tuchong_works(116788760)

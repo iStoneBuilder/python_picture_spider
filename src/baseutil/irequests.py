@@ -35,11 +35,12 @@ def request_context(uri, headers, _type):
         headers = _headers
     # 发送请求并将响应内容保存到文件中
     response = requests.get(uri, headers=headers)
-    if "html" == _type:
-        return BeautifulSoup(response.text, 'html.parser')
-    if "json" == _type:
-        return response.json()
-    return response
+    if '200' == response.status_code:
+        if "html" == _type:
+            return BeautifulSoup(response.text, 'html.parser')
+        if "json" == _type:
+            return response.json()
+    return None
 
 
 # 获取图片内容
