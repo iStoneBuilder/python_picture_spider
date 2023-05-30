@@ -1,7 +1,7 @@
 from flask import Flask
+
 from src.service.UserService import UserService
 from src.service.WorkService import WorkService
-
 
 # spider 主入口
 if __name__ == '__main__':

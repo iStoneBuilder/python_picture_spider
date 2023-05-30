@@ -2,7 +2,6 @@
 https://tuchong.com/rest/2/sites/1317325/posts?count=20&page=1
 https://tuchong.com/rest/posts/116788760
 """
-import json
 
 from src.baseutil.irequests import request_context, download_images
 
