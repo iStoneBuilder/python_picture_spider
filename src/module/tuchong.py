@@ -14,8 +14,10 @@ def download_tuchong_works_data(_works_data):
     _works_imgs = _works_data['images']
     # 组图名称
     _works_title = _works_data['title']
+    # 作者名称
+    _author_name = _works_data['site']['name']
     # 存储数据文件夹
-    _works_folder = f'/U_{_works_data["author_id"]}'
+    _works_folder = f'/U{_works_data["author_id"]}_IMG_{_author_name}'
     # 判断是否有数据
     if len(_works_imgs) > 0:
         print(
@@ -47,6 +49,7 @@ def download_tuchong_works(_work_id):
     _works_data['post_id'] = _work_id
     _works_data['author_id'] = _works_data['post']['author_id']
     _works_data['title'] = _works_data['post']['title']
+    _works_data['site'] = _works_data['post']['site']
     # 下载组图数据
     return download_tuchong_works_data(_works_data)
 
@@ -58,7 +61,7 @@ def download_tuchong_users(_users_id):
     _users_uri = f'{server}/rest/2/sites/{_users_id}/posts?count=20&page='
     _users_index = 1
     # 获取网站内容
-    _users_datas = request_context(f"{_users_uri}{_users_index}", None, 'json')
+    _users_datas = await request_context(f"{_users_uri}{_users_index}", None, 'json')
     # 获取所有组
     _group_datas = _users_datas['post_list']
     if len(_group_datas) == 0:
@@ -75,5 +78,3 @@ def download_tuchong_users(_users_id):
         # 获取所有组
         _group_datas = _users_datas['post_list']
     print(f'========== ✅关注用户数据下载完成 ✅ users_id: {_users_id}')
-
-

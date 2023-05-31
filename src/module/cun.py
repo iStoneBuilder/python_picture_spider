@@ -15,7 +15,7 @@ def download_cun_works_data(_works_data, _works_id, _users_id):
     # 组图名称
     _works_title = _works_data.find('h2', {"class": "work-title"}).text.strip()
     # 存储数据文件夹
-    _works_folder = f'/U_{_users_id}'
+    _works_folder = f'/U{_users_id}_IMG_'
     # 判断是否有数据
     if len(_works_data_img) > 0:
         print(
