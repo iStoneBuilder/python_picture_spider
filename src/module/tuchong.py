@@ -58,7 +58,7 @@ def download_tuchong_works(_work_id):
 def download_tuchong_users(_users_id):
     print(f'========== ✅关注用户数据处理!开始 users_id: {_users_id}')
     # 下载链接
-    _users_uri = f'{server}/rest/2/sites/{_users_id}/posts?count=20&page='
+    _users_uri = f'{server}/rest/2/sites/{_users_id}/posts?count=500&page='
     _users_index = 1
     # 获取网站内容
     _users_datas = request_context(f"{_users_uri}{_users_index}", None, 'json')
