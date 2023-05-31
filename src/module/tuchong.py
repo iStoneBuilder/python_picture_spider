@@ -61,7 +61,7 @@ def download_tuchong_users(_users_id):
     _users_uri = f'{server}/rest/2/sites/{_users_id}/posts?count=20&page='
     _users_index = 1
     # 获取网站内容
-    _users_datas = await request_context(f"{_users_uri}{_users_index}", None, 'json')
+    _users_datas = request_context(f"{_users_uri}{_users_index}", None, 'json')
     # 获取所有组
     _group_datas = _users_datas['post_list']
     if len(_group_datas) == 0:
