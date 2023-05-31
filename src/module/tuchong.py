@@ -3,7 +3,7 @@ https://tuchong.com/rest/2/sites/1317325/posts?count=20&page=1
 https://tuchong.com/rest/posts/116788760
 """
 
-from src.baseutil.irequests import request_context, download_images
+from src.baseutil.request_util import request_context, download_images
 
 server = "https://tuchong.com"
 
@@ -15,7 +15,7 @@ def download_tuchong_works_data(_works_data):
     # 组图名称
     _works_title = _works_data['title']
     # 存储数据文件夹
-    _works_folder = f'/user_{_works_data["author_id"]}'
+    _works_folder = f'/U_{_works_data["author_id"]}'
     # 判断是否有数据
     if len(_works_imgs) > 0:
         print(
@@ -31,7 +31,7 @@ def download_tuchong_works_data(_works_data):
             # 下载文件链接
             _file_download_uri = f'https://photo.tuchong.com/{_works_data["author_id"]}/f/{_i_works_data["img_id"]}.jpg'
             # 开始下载文件
-            _tuchong_status = download_images("cun" + _works_folder, _file_download_uri, _new_file_name)
+            _tuchong_status = download_images("tuchong" + _works_folder, _file_download_uri, _new_file_name)
             if _tuchong_status == 'exist':
                 print(
                     f'========== 跳过下载,文件组已存在! users_id: {_works_data["author_id"]} | works_id: {_works_data["post_id"]} ｜ works_title: {_works_title}')
@@ -74,5 +74,6 @@ def download_tuchong_users(_users_id):
         _users_datas = request_context(f"{_users_uri}{_users_index}", None, 'json')
         # 获取所有组
         _group_datas = _users_datas['post_list']
+    print(f'========== ✅关注用户数据下载完成 ✅ users_id: {_users_id}')
 
 

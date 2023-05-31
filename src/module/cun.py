@@ -3,7 +3,7 @@ http://www.cnu.cc/users/518554?page=2 用户
 """
 import json
 
-from src.baseutil.irequests import request_context, download_images
+from src.baseutil.request_util import request_context, download_images
 
 server = "http://www.cnu.cc"
 
@@ -15,7 +15,7 @@ def download_cun_works_data(_works_data, _works_id, _users_id):
     # 组图名称
     _works_title = _works_data.find('h2', {"class": "work-title"}).text.strip()
     # 存储数据文件夹
-    _works_folder = f'/user_{_users_id}'
+    _works_folder = f'/U_{_users_id}'
     # 判断是否有数据
     if len(_works_data_img) > 0:
         print(

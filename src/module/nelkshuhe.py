@@ -1,7 +1,7 @@
 # http://www.nelkshuhe.com/
 
 
-from src.baseutil.irequests import request_context, download_images
+from src.baseutil.request_util import request_context, download_images
 
 server = "http://www.nelkshuhe.com"
 

@@ -35,11 +35,12 @@ def request_context(uri, headers, _type):
         headers = _headers
     # 发送请求并将响应内容保存到文件中
     response = requests.get(uri, headers=headers)
-    if '200' == response.status_code:
+    if '200' == response.status_code or 200 == response.status_code:
         if "html" == _type:
             return BeautifulSoup(response.text, 'html.parser')
         if "json" == _type:
             return response.json()
+    print(f"========== ❌ 获取数据错误：{response.status_code}")
     return None
 
 
