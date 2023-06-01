@@ -2,7 +2,7 @@
 https://tuchong.com/rest/2/sites/1317325/posts?count=20&page=1
 https://tuchong.com/rest/posts/116788760
 """
-
+from src.baseutil.async_util import async_executor
 from src.baseutil.request_util import request_context, download_images
 
 server = "https://tuchong.com"
@@ -51,7 +51,7 @@ def download_tuchong_works(_work_id):
     _works_data['title'] = _works_data['post']['title']
     _works_data['site'] = _works_data['post']['site']
     # 下载组图数据
-    return download_tuchong_works_data(_works_data)
+    async_executor(download_tuchong_works_data, _works_data)
 
 
 # 用户
@@ -71,7 +71,7 @@ def download_tuchong_users(_users_id):
         # 每一页的所有链接
         for _index, _index_data in enumerate(_group_datas):
             # 下载数据
-            download_tuchong_works_data(_index_data)
+            async_executor(download_tuchong_works_data, _index_data)
         _users_index = _users_index + 1
         # 获取网站内容
         _users_datas = request_context(f"{_users_uri}{_users_index}", None, 'json')
