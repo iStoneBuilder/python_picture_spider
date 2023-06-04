@@ -69,7 +69,7 @@ def download_tuchong_users_follows(_users_id):
         # 每一页的所有链接
         for _index, _index_data in enumerate(_follows_datas):
             # 下载数据
-            download_tuchong_users(_index_data['site_id'])
+            async_executor(download_tuchong_users, _index_data['site_id'])
         _users_index = _users_index + 1
         # 获取网站内容
         _users_datas = request_context(f"{_users_uri}{_users_index}", None, 'json')
