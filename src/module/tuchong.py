@@ -54,6 +54,29 @@ def download_tuchong_works(_work_id):
     async_executor(download_tuchong_works_data, _works_data)
 
 
+def download_tuchong_users_follows(_users_id):
+    # 下载链接
+    _users_uri = f'{server}/gapi/interactive/following?user_id={_users_id}&count=100&page='
+    _users_index = 1
+    # 获取网站内容
+    _users_datas = request_context(f"{_users_uri}{_users_index}", None, 'json')
+    # 获取所有组
+    _follows_datas = _users_datas['sites']
+    if len(_follows_datas) == 0:
+        print(f'========== ✅没有找到用户关注数据!返回 users_id: {_users_id}')
+        return
+    while len(_follows_datas) > 0:
+        # 每一页的所有链接
+        for _index, _index_data in enumerate(_follows_datas):
+            # 下载数据
+            download_tuchong_users(_index_data['site_id'])
+        _users_index = _users_index + 1
+        # 获取网站内容
+        _users_datas = request_context(f"{_users_uri}{_users_index}", None, 'json')
+        # 获取所有组
+        _follows_datas = _users_datas['sites']
+
+
 # 用户
 def download_tuchong_users(_users_id):
     print(f'========== ✅关注用户数据处理!开始 users_id: {_users_id}')
