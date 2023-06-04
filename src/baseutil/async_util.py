@@ -7,6 +7,8 @@ from concurrent.futures import ThreadPoolExecutor
 executor = ThreadPoolExecutor(5)
 
 
-def async_executor(_function_, _data_):
+def async_executor(_function_, _params_):
     # 执行异步任务
-    executor.submit(_function_, _data_)
+    executor.submit(_function_, _params_)
+
+

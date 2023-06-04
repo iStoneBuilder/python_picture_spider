@@ -31,11 +31,13 @@ _headers = {
 
 # 获取网页内容
 def request_context(uri, headers, _type):
+    print(f"========== ✅ 获取数据URI：{uri}")
     if headers is None or len(headers) != 0:
         headers = _headers
     # 发送请求并将响应内容保存到文件中
     response = requests.get(uri, headers=headers)
     if '200' == response.status_code or 200 == response.status_code:
+        print(f"========== ✅ 获取数据正确：{response.status_code}")
         if "html" == _type:
             return BeautifulSoup(response.text, 'html.parser')
         if "json" == _type:

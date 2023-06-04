@@ -45,13 +45,18 @@ def download_tuchong_works(_work_id):
     _work_uri = server + f'/rest/posts/{_work_id}'
     # 获取组图数据
     _works_data = request_context(_work_uri, None, 'json')
-    # 处理post_id
-    _works_data['post_id'] = _work_id
-    _works_data['author_id'] = _works_data['post']['author_id']
-    _works_data['title'] = _works_data['post']['title']
-    _works_data['site'] = _works_data['post']['site']
-    # 下载组图数据
-    async_executor(download_tuchong_works_data, _works_data)
+    if _works_data is None:
+        return
+    elif _works_data['result'] == 'ERROR':
+        print(f"========== ❌ 获取数据错误：{_works_data['message']}")
+    else:
+        # 处理post_id
+        _works_data['post_id'] = _work_id
+        _works_data['author_id'] = _works_data['post']['author_id']
+        _works_data['title'] = _works_data['post']['title']
+        _works_data['site'] = _works_data['post']['site']
+        # 下载组图数据
+        async_executor(download_tuchong_works_data, _works_data)
 
 
 def download_tuchong_users_follows(_users_id):
