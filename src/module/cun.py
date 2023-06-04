@@ -19,7 +19,7 @@ def download_cun_works_data(_params_data):
     # 作者名
     _works_author = _works_data.find('span', {"class": "author-info"}).find('strong').text.strip()
     # 存储数据文件夹
-    _works_folder = f'/C{_params_data["userId"]}_IMG_{_works_author}'
+    _works_folder = f'C{_params_data["userId"]}_IMG_{_works_author}'
     # 判断是否有数据
     if len(_works_data_img) > 0:
         print(
@@ -39,7 +39,7 @@ def download_cun_works_data(_params_data):
             # 下载文件链接
             _file_download_uri = "http://imgoss.cnu.cc/" + _i_works_data['img'] + "?x-oss-process=style/content"
             # 开始下载文件
-            _cun_status = download_images("cun" + _works_folder, _file_download_uri, _new_file_name)
+            _cun_status = download_images(_works_folder, _file_download_uri, _new_file_name)
             if _cun_status == 'exist':
                 print(
                     f'========== 跳过下载,文件组已存在! users_id: {_params_data["userId"]} | '
@@ -82,7 +82,7 @@ def download_cun_users(_users_id):
             # 组ID
             _works_id = _index_hrefs[len(_index_hrefs) - 1]
             # 下载数据
-            download_cun_works(_works_id)
+            async_executor(download_cun_works, _works_id)
         _users_index = _users_index + 1
         # 获取网站内容
         _users_datas = request_context(f"{_users_uri}{_users_index}", None, 'html')

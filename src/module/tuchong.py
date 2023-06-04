@@ -17,7 +17,7 @@ def download_tuchong_works_data(_works_data):
     # 作者名称
     _author_name = _works_data['site']['name']
     # 存储数据文件夹
-    _works_folder = f'/U{_works_data["author_id"]}_IMG_{_author_name}'
+    _works_folder = f'U{_works_data["author_id"]}_IMG_{_author_name}'
     # 判断是否有数据
     if len(_works_imgs) > 0:
         print(
@@ -33,7 +33,7 @@ def download_tuchong_works_data(_works_data):
             # 下载文件链接
             _file_download_uri = f'https://photo.tuchong.com/{_works_data["author_id"]}/f/{_i_works_data["img_id"]}.jpg'
             # 开始下载文件
-            _tuchong_status = download_images("tuchong" + _works_folder, _file_download_uri, _new_file_name)
+            _tuchong_status = download_images(_works_folder, _file_download_uri, _new_file_name)
             if _tuchong_status == 'exist':
                 print(
                     f'========== 跳过下载,文件组已存在! users_id: {_works_data["author_id"]} | works_id: {_works_data["post_id"]} ｜ works_title: {_works_title}')
