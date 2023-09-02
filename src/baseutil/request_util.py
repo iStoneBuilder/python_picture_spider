@@ -54,7 +54,7 @@ def request_images(uri):
 # 保存图片内容
 def download_images(module, uri, name):
     # 存放文件目录
-    folder = '/Users/' + getpass.getuser() + '/Downloads/images/' + module
+    folder = '/Users/' + getpass.getuser() + '/Pictures/sample.images/' + module
 
     # 如果目录不存在，则创建目录
     if not os.path.exists(folder):
